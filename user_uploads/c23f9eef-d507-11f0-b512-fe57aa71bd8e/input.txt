@@ -1,0 +1,10 @@
+file 'Screenshot 2025-12-07 201729.png'
+duration 1
+file 'Screenshot 2025-12-03 232909.png'
+duration 1
+file 'Screenshot 2025-12-06 211010.png'
+duration 1
+file 'Screenshot 2025-12-07 201438.png'
+duration 1
+file 'Screenshot 2025-11-29 151313.png'
+duration 1

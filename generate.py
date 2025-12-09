@@ -10,11 +10,21 @@ def text_to_audio(folder) :
     text_to_speech_file(text,folder)
 
 def create_reel(folder):
-    command = '''ffmpeg -f concat -safe 0 -i user_uploads/{folder}/input.txt -i user_uploads/{folder}/output_reel_with_audio.mp3 -vf
-                            "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black" -c:v libx264 -c:a aac -shortest -r 30 -pix_fmt yuv420p static/reels/{folder}.mp4
-                '''
+    os.makedirs("static/reels", exist_ok=True)
+
+    command = (
+    r'ffmpeg -f concat -safe 0 '
+    rf'-i "C:\Users\satya\OneDrive\Documents\vidsnap\user_uploads\{folder}\input.txt" '
+    rf'-i "C:\Users\satya\OneDrive\Documents\vidsnap\user_uploads\{folder}\output_reel_with_audio.mp3" '
+    r'-vf "scale=1080:1920:force_original_aspect_ratio=decrease,'
+    r'pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black" '
+    rf'-c:v libx264 -c:a aac -shortest -r 30 -pix_fmt yuv420p '
+    rf'"C:\Users\satya\OneDrive\Documents\vidsnap\static\reels\{folder}.mp4"'
+)
+
+
     subprocess.run(command, shell=True, check=True)
-    print("CR:",folder)
+    print("CR:", folder)
 
 if __name__ == "__main__" :
     while True:
@@ -23,12 +33,12 @@ if __name__ == "__main__" :
             done_folders = f.readlines()
         done_folders = [f.strip() for f in done_folders]
         folders = os.listdir("user_uploads")
-        for  folder in folders :
+        for folder in folders :
             if folder not in done_folders:
                 text_to_audio(folder)
                 create_reel(folder)
+                with open("done.txt","a") as f:
+                    f.write(folder + "\n")
 
-            with open("done.txt","a") as f:
-                f.write(folder + "\n")
 
         time.sleep(4)
