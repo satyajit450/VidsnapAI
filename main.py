@@ -22,7 +22,7 @@ def create():
     if request.method   == "POST" :
         print(request.files.keys())   # isse upload ke data mil jayange
         rec_id = request.form.get("uuid")  # isse ak unique id mil jayega
-        desc = request.form.get("text")    #jo humlog text area me likhenge yaha pe show hoga
+        desc = request.form.get("text")    #jo humlog text area me likhenge yaha pe show hoga (like a white box)
         for key,value in request.files.items():
             print(key,value)
             #upload the file
